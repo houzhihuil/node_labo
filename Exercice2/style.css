@@ -1,0 +1,116 @@
+
+/* div entete */
+#entete{
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 15%;/* si ça change, il faut changer #zoneContenuItem */
+    background-color: orangered;
+}
+
+#entete h1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    text-align: center;
+    font-size: 40px;/* à changer au media query si besoin */
+    position: relative;
+    top: 30%; 
+    color: white;   
+}
+
+#panier{
+    background-color: blue;
+    width: 110px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 16px;
+    position: absolute;
+    top: 2%;
+    right: 5px;
+    color: white;
+    padding: 5px 5px;
+}
+
+#idItem{
+    color: red;
+    font-size: 18px;
+}
+
+/*------------------------------------*/
+/* div zoneContenuItem */
+#zoneContenuItem{
+    position: absolute;
+    top: 15%;/* basé sur #entete height:15% */
+    left: 0%;
+    width: 100%;
+    height: auto;
+    background-color: #DEDEDE;
+    padding-top: 5%;
+}
+
+.item{
+    width: 20%;
+    margin: 30px 2%;
+    display: inline-block;
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: blue;
+}
+
+.ajouter, #unAjout{
+    background-color: red;
+    width: 50%;
+    height: 30px;
+    margin: 5% 25%;
+    padding-top: 10px;
+    font-weight: bold;
+    border-radius: 5px;
+    color: white;
+	cursor : pointer;
+	text-align : center;
+}
+
+
+/*---------------------------------------*/
+/* div zoneContenuFacture */
+#zoneContenuFacture{
+    position: absolute;
+    top: 15%;/* basé sur #entete height:15% */
+    left: 0%;
+    width: 100%;
+    padding-top: 5%;
+    height: auto;
+    background-color: #DEDEDE;
+    display: none;
+}
+/*-----------------Zone Detail---------------------*/
+
+#zoneDetail{
+	width : 600px;
+	height : 300px;
+	background-color : white;
+	position : absolute;
+	left : 20%;
+	top : 18%;
+	z-index : 10;
+	display : none;
+}
+
+#petiteEntete{
+	background-color : blue;
+	text-align : right;
+	color : white;
+	font-weight : bold;
+}
+
+#uneImage{
+	float : left;
+}
+
+#idFermerDialogue{
+	position : relative;
+	right : 10px;
+	cursor : pointer;
+	
+}

@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8" />
+		<style type="text/css">
+			#zoneModificationProduit, #zoneSuppressionProduit, #zoneListeProduit{
+				display : none;
+			}
+		</style>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
+		</script>
+		<script type="text/javascript">
+			function creerProduit(){				
+				$("#zoneModificationProduit").hide();
+				$("#zoneSuppressionProduit").hide();
+				$("#zoneListeProduit").hide();
+				$("#zoneNouveauProduit").show();
+			}
+			function modifierProduit(){					
+				$("#zoneSuppressionProduit").hide();
+				$("#zoneListeProduit").hide();
+				$("#zoneNouveauProduit").hide();
+				$("#zoneModificationProduit").show();
+			}
+			function supprimerProduit(){				
+				$("#zoneModificationProduit").hide();				
+				$("#zoneListeProduit").hide();
+				$("#zoneNouveauProduit").hide();
+				$("#zoneSuppressionProduit").show();
+			}
+			function listerProduit(){				
+				$("#zoneModificationProduit").hide();
+				$("#zoneSuppressionProduit").hide();				
+				$("#zoneNouveauProduit").hide();
+				$("#zoneListeProduit").show();				
+			}
+			
+			
+		</script>
+		<title>Exercice 1</title>
+	</head>
+	<body>
+		<p>
+			<input type="button" value="Nouveau Produit" onclick="creerProduit();" />
+			<input type="button" value="Modification de Produit" onclick="modifierProduit();" />
+			<input type="button" value="Suppression de Produit" onclick="supprimerProduit();" />
+			<input type="button" value="Liste Produit" onclick="listerProduit();" />
+		</p>
+		<div id="zoneNouveauProduit">
+			<form>
+				<h1>Nouveau produit</h1>
+				<p>
+					<label>Description</label>
+					<input id="txtDescriptionN" type="text" />
+				</p>
+				<p>
+					<label>Image</label>
+					<input id="txtImageN" type="text" />
+				</p>
+				<p>
+					<label>Prix</label>
+					<input id="txtPrixN" type="text" />
+				</p>
+				<p>
+					<label>Details</label>
+					<input id="txtDetailN" type="text" />
+				</p>
+				<p>					
+					<input  type="button" value="Enregistrer" onclick="enregistrer();" />
+				</p>				
+			</form>
+		</div>
+		<div id="zoneModificationProduit">
+			<form>
+				<h1>Modification de produit</h1>
+				<p>
+						<label>ID du produit</label>
+						<input id="txtIdM" type="text" />
+						<input  type="button" value="Rechercher" onclick="rechercherModification();" />
+				</p>
+				<fieldset>
+					<legend>Modification souhaitée</legend>
+					<p>
+						<label>Description</label>
+						<input id="txtDescriptionM" type="text" />
+					</p>
+					<p>
+						<label>Image</label>
+						<input id="txtImageM" type="text" />
+					</p>
+					<p>
+						<label>Prix</label>
+						<input id="txtPrixM" type="text" />
+					</p>
+					<p>
+						<label>Details</label>
+						<input id="txtDetailM" type="text" />
+					</p>
+					<p>					
+						<input  type="button" value="Modifier" onclick="modifier();" />
+					</p>
+				</fieldset>
+			</form>
+		</div>
+		<div id="zoneSuppressionProduit">
+			<form>
+				<h1>Suppression de produit</h1>
+				<p>
+						<label>ID du produit</label>
+						<input id="txtIdS" type="text" />
+						<input  type="button" value="Rechercher" onclick="rechercher();" />
+				</p>
+				<fieldset>
+					<legend>Produit à supprimer</legend>
+					<p>
+						<label>Description</label>
+						<input id="txtDescriptionS" type="text" disabled="disabled"/>
+					</p>
+					<p>
+						<label>Image</label>
+						<input id="txtImageS" type="text" disabled="disabled"/>
+					</p>
+					<p>
+						<label>Prix</label>
+						<input id="txtPrixS" type="text" disabled="disabled"/>
+					</p>
+					<p>
+						<label>Details</label>
+						<input id="txtDetailS" type="text" disabled="disabled"/>
+					</p>
+					<p>					
+						<input  type="button" value="Supprimer" onclick="supprimer();" />
+					</p>
+				</fieldset>
+			</form>
+		</div>
+		<div id="zoneListeProduit">
+			<h1>Liste de produit</h1>
+			<table border="1" width="80%">
+				<thead>
+					<th>Id</th>
+					<th>Description</th>
+					<th>Image</th>
+					<th>Prix</th>
+					<th>Details</th>
+				</thead>
+				<tbody id="idCorpsTableau">
+				</tbody>
+			</table>
+		</div>
+	</body>
+</html>
