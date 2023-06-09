@@ -10,11 +10,151 @@
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js">
 		</script>
 		<script type="text/javascript">
+			function rechercherModification(){
+				var idProduit = $("#txtIdM").val();  
+				$.ajax({
+					url:"http://localhost:3000/getProduct/"+idProduit,
+					method:"get",
+					dataType:"json",
+					success:function(data){ 
+						if(data.message !="produit trouvé"){
+							alert(data.message)
+						}
+						else{
+							var response = data.data; 
+							$("#txtDescriptionM").val(response.description);
+							$("#txtImageM").val(response.image);  
+							$("#txtPrixM").val(response.prix);
+							$("#txtDetailM").val(response.details); 
+						}
+					},
+					error: function(error){
+						alert("Error"+error);
+					}
+				}); 
+			}
+ 
+			function rechercher(){
+				var idProduit = $("#txtIdS").val();  
+				$.ajax({
+					url:"http://localhost:3000/getProduct/"+idProduit,
+					method:"get",
+					dataType:"json",
+					success:function(data){ 
+						if(data.message !="produit trouvé"){
+							alert(data.message)
+						}
+						else{
+							var response = data.data; 
+							$("#txtDescriptionS").val(response.description);
+							$("#txtImageS").val(response.image);  
+							$("#txtPrixS").val(response.prix);
+							$("#txtDetailS").val(response.details); 
+						}
+					},
+					error: function(error){
+						alert("Error"+error);
+					}
+				}); 
+			}
+
+			function enregistrer(){
+				var descriptionProduit = $("#txtDescriptionN").val();
+				var imageProduit = $("#txtImageN").val();
+				var prixProduit = parseFloat($("#txtPrixN").val());
+				var detailProduit = $("#txtDetailN").val(); 
+				alert(descriptionProduit + " " + imageProduit + " " + prixProduit + " " + detailProduit );
+				$.ajax({
+					contentType:"application/json; charset=utf-8",
+					processData: false,
+					url:"http://localhost:3000/createProduct/",
+					data: JSON.stringify({
+						description: descriptionProduit,
+						image: imageProduit,
+						prix: prixProduit,
+						details: detailProduit
+					}),
+					method:"post",
+					dataType:"json",
+					success:function(data){  
+							 
+							$("#txtDescriptionN").val(" ");
+							$("#txtImageN").val(" "); 
+							$("#txtPrixN").val(" ");
+							$("#txtDetailN").val(" ");
+						 	alert("Produit enregistré");
+					},
+					error: function(error){
+						alert("Error"+error);
+					}
+				}); 
+			}
+			
+			function modifier(){
+				var idProduit = $("#txtIdM").val();
+				var descriptionProduit = $("#txtDescriptionM").val();
+				var imageProduit = $("#txtImageM").val();
+				var prixProduit = parseFloat($("#txtPrixM").val());
+				var detailProduit = $("#txtDetailM").val(); 
+		
+				$.ajax({
+					url:"http://localhost:3000/updateProduct/"+idProduit,
+					contentType:"application/json; charset=utf-8",
+					processData: false, 
+					data: JSON.stringify({
+						description: descriptionProduit,
+						image: imageProduit,
+						prix: prixProduit,
+						details: detailProduit
+					}),
+					method:"put",
+					dataType:"json",
+					success:function(data){ 
+						 
+							$("#txtIdM").val("");
+							$("#txtDescriptionM").val("");
+							$("#txtImageM").val(""); 
+							$("#txtPrixM").val("");
+							$("#txtDetailM").val("");
+						 	alert("Produit modifié");  
+					},
+					 error: function(error){ 
+						console.error("Error"+error);
+					},  
+					 
+				}); 
+			}
+			
+			function supprimer(){ 
+				var idProduit = $("#txtIdS").val();
+				if (confirm("Etes-vous sûr de vouloir supprimer le produit de code "+ idProduit+ " ?")){
+ 
+				$.ajax({
+					url:"http://localhost:3000/deleteProduct/"+idProduit,
+					method:"delete",
+					dataType:"json",
+					success:function(data){ 
+						$("#txtDescriptionS").val("");
+						$("#txtImageS").val("");
+						$("#txtPrixS").val("");
+						$("#txtDetailS").val("");
+						alert("Confirmation : "+data)
+					},
+					error: function(error){
+						alert("Error"+error);
+					}
+					}); 
+				} else {
+					alert("Suppression annulée");
+				}
+			}
+
 			function creerProduit(){				
 				$("#zoneModificationProduit").hide();
 				$("#zoneSuppressionProduit").hide();
 				$("#zoneListeProduit").hide();
 				$("#zoneNouveauProduit").show();
+
 			}
 			function modifierProduit(){					
 				$("#zoneSuppressionProduit").hide();
@@ -32,7 +172,51 @@
 				$("#zoneModificationProduit").hide();
 				$("#zoneSuppressionProduit").hide();				
 				$("#zoneNouveauProduit").hide();
-				$("#zoneListeProduit").show();				
+				$("#zoneListeProduit").show();
+				
+				var noeudtBody = $("#idCorpsTableau");
+				$.ajax({
+					url: "http://localhost:3000/getAllProducts",
+					method:"get",
+					deatType:"json",
+					success: function(data){
+						$.each(data, function (index, produit){
+							var description = produit.description;
+							var image = produit.image;
+							var prix = produit.prix;
+							var details = produit.details;
+							var id = produit.id;
+
+							var noeudTr = $("<tr></tr>");
+							var noeudTd1 = $("<td></td>");
+							$(noeudTd1).text(id);
+							$(noeudTr).append(noeudTd1);
+
+							var noeudTd2 = $("<td></td>");
+							$(noeudTd2).text(description);
+							$(noeudTr).append(noeudTd2);
+
+							var noeudTd3 = $("<td></td>");
+							var noeudTd31 = $("<img/>");
+							$(noeudTd31).attr({src: image, width:"50%"});
+							$(noeudTd3).append(noeudTd31);
+							$(noeudTr).append(noeudTd3);
+
+							var noeudTd4 = $("<td></td>");
+							$(noeudTd4).text(prix);
+							$(noeudTr).append(noeudTd4);
+
+							var noeudTd5 = $("<td></td>");
+							$(noeudTd5).text(details);
+							$(noeudTr).append(noeudTd5);
+
+							$(noeudtBody).append(noeudTr);
+						});
+					},
+					error: function(error){
+						alert('Error '+error);
+					}
+				});  
 			}
 			
 			
